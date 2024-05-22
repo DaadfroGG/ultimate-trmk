@@ -1,8 +1,8 @@
 SRC = main.cpp src/Renderer.cpp src/Tex.cpp
 OBJ = $(SRC:.cpp=.o)
 HEADER =
-LIBS = -lSDL2 
-NAME = utltimate-tmrk
+LIBS = -lSDL2
+NAME = ultimate-tmrk
 CPPFLAGS = -g3
 CC = g++
 

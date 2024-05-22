@@ -21,50 +21,36 @@
     /* 
         // Example usage:
         // Draw a point on screen
+        renderer.drawPoint(renderraw_noflag, 100, 100, 0xFF0000, 0);
+        
         // Draw a point on a texture
-        renderer.drawPoint([&tex](int x, int y, int color, SDL_Renderer* renderer, int flag) {
-        tex.setPixel(x, y, color, renderer, flag);
-        }, 100, 100, 0xFF0000, 0);
+        renderer.drawPoint(texdraw_noflag, 100, 100, 0xFF0000, 0);
+
         // Draw a line on screen
-        renderer.drawLine([&renderer](int x1, int y1, int x2, int y2, int color, SDL_Renderer* renderer, int flag) {
-            renderer.setPixel(x1, y1, color, renderer, flag);
-        }, 100, 100, 200, 200, 0xFF0000, 0);
+        renderer.drawLine(renderdraw_noflag, 100, 100, 200, 200, 0xFF0000, 0); 
         // Draw a line on a texture
-        renderer.drawLine([&tex](int x1, int y1, int x2, int y2, int color, SDL_Renderer* renderer, int flag) {
-            tex.setPixel(x1, y1, color, renderer, flag);
-        }, 100, 100, 200, 200, 0xFF0000, 0);
+        renderer.drawLine(texdraw_noflag, 100, 100, 200, 200, 0xFF0000, 0);
+        
         // Draw a circle on screen
-        renderer.drawCircle([&renderer](int x, int y, int radius, SDL_Renderer* renderer, int flag) {
-            renderer.setPixel(x, y, 0xFF0000, renderer, flag);
-        }, 100, 100, 50, 0xFF0000, 0);
+        renderer.drawCircle(renderdraw_noflag, 100, 100, 50, 0xFF0000, 0);
         // Draw a circle on a texture
-        renderer.drawCircle([&tex](int x, int y, int radius, SDL_Renderer* renderer, int flag) {
-            tex.setPixel(x, y, 0xFF0000, renderer, flag);
-        }, 100, 100, 50, 0xFF0000, 0);
+        renderer.drawCircle(texdraw_noflag, 100, 100, 50, 0xFF0000, 0);
+
         // Fill a triangle on screen
-        renderer.fillTriangle([&renderer](int x, int y, int color, SDL_Renderer* renderer, int flag) {
-            renderer.setPixel(x, y, color, renderer, flag);
-        }, 100, 100, 200, 200, 300, 100, 0xFF0000, 0);
+        renderer.fillTriangle(renderdraw_noflag, 100, 100, 200, 200, 300, 100, 0xFF0000, 0);
         // Fill a triangle on a texture
-        renderer.fillTriangle([&tex](int x, int y, int color, SDL_Renderer* renderer, int flag) {
-            tex.setPixel(x, y, color, renderer, flag);
-        }, 100, 100, 200, 200, 300, 100, 0xFF0000, 0);
+        renderer.fillTriangle(texdraw_noflag, 100, 100, 200, 200, 300, 100, 0xFF0000, 0);
+        
         // Fill a polygon on screen
-        renderer.fillPolygon([&renderer](int x, int y, int color, SDL_Renderer* renderer, int flag) {
-            renderer.setPixel(x, y, color, renderer, flag);
-        }, {Point(100, 100), Point(200, 200), Point(300, 100)}, 0xFF0000, 0);
+        renderer.fillPolygon(renderdraw_noflag, {Point(100, 100), Point(200, 200), Point(300, 100)}, 0xFF0000, 0);
         // Fill a polygon on a texture
-        renderer.fillPolygon([&tex](int x, int y, int color, SDL_Renderer* renderer, int flag) {
-            tex.setPixel(x, y, color, renderer, flag);
-        }, {Point(100, 100), Point(200, 200), Point(300, 100)}, 0xFF0000, 0);
+        renderer.fillPolygon(texdraw_noflag, {Point(100, 100), Point(200, 200), Point(300, 100)}, 0xFF0000, 0);
         // Outline a polygon on screen
-        renderer.outlinePolygon([&renderer](int x, int y, int color, SDL_Renderer* renderer, int flag) {
-            renderer.setPixel(x, y, color, renderer, flag);
-        }, {Point(100, 100), Point(200, 200), Point(300, 100)}, 0xFF0000, 0);
+
+        renderer.outlinePolygon(renderdraw_noflag, {Point(100, 100), Point(200, 200), Point(300, 100)}, 0xFF0000, 0);
         // Outline a polygon on a texture
-        renderer.outlinePolygon([&tex](int x, int y, int color, SDL_Renderer* renderer, int flag) {
-            tex.setPixel(x, y, color, renderer, flag);
-        }, {Point(100, 100), Point(200, 200), Point(300, 100)}, 0xFF0000, 0);
+        renderer.outlinePolygon(texdraw_noflag, {Point(100, 100), Point(200, 200), Point(300, 100)}, 0xFF0000, 0);
+        
         // Draw a texture on screen
         renderer.drawTex(&tex, 100, 100);
     */
@@ -133,5 +119,10 @@ class Renderer {
         void update();
         void clear();
 };
+
+#define texdraw [&tex](int x, int y, int color, SDL_Renderer* r, int flagn)
+#define renderdraw [&renderer](int x, int y, int color, SDL_Renderer* r, int flagn)
+#define texdraw_noflag texdraw{tex.setPixel(x, y, color, r, 0);}
+#define renderdraw_noflag renderdraw{renderer.setPixel(x, y, color, r, 0);}
 
 #endif

@@ -6,8 +6,6 @@
 double clamp(double x, double a, double b) {
     return fmax(a, fmin(b, x));
 }
-
-
     
 int interpolateColor(int color1, int color2, double t) {
     int r1 = (color1 >> 16) & 0xFF;
@@ -21,6 +19,8 @@ int interpolateColor(int color1, int color2, double t) {
     int b = (int) (b1 * (1 - t) + b2 * t);
     return (r << 16) + (g << 8) + b;
 }
+
+
 int main() {
     Renderer renderer(nullptr, SDL_CreateWindow("SDL2", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, WIDTH, HEIGHT, SDL_WINDOW_FULLSCREEN));
     Events events;
@@ -56,19 +56,16 @@ int main() {
             if (events.mouseButtonPressed(SDL_BUTTON_LEFT))
             {
                 //draw a circle on the texture where the mouse is
-                renderer.drawCircle([&tex](int x, int y, int color, SDL_Renderer* r, int __attribute__((unused))flagn) {
-                        tex.setPixel(x, y, color, r, NO_OVERLAP | NOISE);}, events.getMouseX(), events.getMouseY(), 10, 0xFF0000, NO_OVERLAP);
+                renderer.drawCircle(texdraw_noflag, events.getMouseX(), events.getMouseY(), 10, 0xFF0000, 0);
             }
         }
-        // Adjust the size based on the desired growth rate
-        //draw a circle on the texture where the mouse is
-//renderer.outlinePolygon([&renderer](int x, int y, int color, SDL_Renderer* r, int __attribute__((unused))flagn) {
-      //              renderer.setPixel(x, y, color, r, NO_OVERLAP);
         // Draw the texture
         renderer.drawTex(&tex, WIDTH / 2 - MAP_WIDTH / 2, HEIGHT / 2 - MAP_HEIGHT / 2);
-            renderer.drawCircle([&renderer](int x, int y, int color, SDL_Renderer* r, int __attribute__((unused))flagn) {
-                    renderer.setPixel(x, y, color, r, NO_OVERLAP | NOISE);}, events.getMouseX(), events.getMouseY(), 10, 0xFF0000, NO_OVERLAP);
-           
+
+//        renderer.fillTriangle(texdraw_noflag_2d, 100, 100, 200, 200, 300, 100, 0xFF0000, 0);
+        renderer.drawCircle(renderdraw_noflag, events.getMouseX(), events.getMouseY(), 10, 0xFF0000, 0);
+        
+        renderer.drawLine(texdraw_noflag, 100, 100, 200, 200, 0xFF0000, 0);
         // Present the screen
         tex.update(renderer.getRenderer(), renderer.getWindow());
         renderer.update();
