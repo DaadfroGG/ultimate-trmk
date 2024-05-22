@@ -8,7 +8,10 @@
 #include <SDL2/SDL.h>
 #include <functional>
 #include <stdbool.h>
+#include <cstdio>
+#include <string>
 #include <math.h>
+#include <sstream>
 #include <set>
 #define WIDTH 1920
 #define HEIGHT 1080
